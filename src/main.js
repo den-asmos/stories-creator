@@ -2,9 +2,11 @@ import { Telegraf } from 'telegraf';
 import { message } from 'telegraf/filters';
 import { Loader } from './loader.js';
 import { addImage, createNote } from './notion.js';
-import config from 'config';
+import { configDotenv } from 'dotenv';
 
-const bot = new Telegraf(config.get('TELEGRAM_TOKEN'), {
+configDotenv();
+
+const bot = new Telegraf(process.env.TELEGRAM_TOKEN, {
   handlerTimeout: Infinity,
 });
 

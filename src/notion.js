@@ -1,13 +1,15 @@
 import { Client } from '@notionhq/client';
-import config from 'config';
+import { configDotenv } from 'dotenv';
+
+configDotenv();
 
 const notion = new Client({
-  auth: config.get('NOTION_KEY'),
+  auth: process.env.NOTION_KEY,
 });
 
 export const createNote = async (note, user) => {
   const response = await notion.pages.create({
-    parent: { type: 'database_id', database_id: config.get('NOTION_DB_ID') },
+    parent: { type: 'database_id', database_id: process.env.NOTION_DB_ID },
     properties: {
       Name: {
         title: [
@@ -60,7 +62,7 @@ export const createNote = async (note, user) => {
 
 export const addImage = async (imageUrl, user) => {
   const response = await notion.pages.create({
-    parent: { type: 'database_id', database_id: config.get('NOTION_DB_ID') },
+    parent: { type: 'database_id', database_id: process.env.NOTION_DB_ID },
     properties: {
       Name: {
         title: [
